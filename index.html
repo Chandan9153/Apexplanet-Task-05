@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Products - Chandan </title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content container">
+            <h1 class="logo">Chandan Store</h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#" onclick="navigatePage('home')">Home</a></li>
+                    <li><a href="#" onclick="navigatePage('products')">Products</a></li>
+                    <li><a href="#" onclick="navigatePage('cart')">Cart <span id="cartItemCount" class="cart-count">0</span></a></li>
+                    <li><a href="#" onclick="navigatePage('reviews')">Reviews</a></li>
+                    <li><a href="#" onclick="navigatePage('account')">Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container product-page-main">
+        <section id="homeSection" class="home-section page-section active">
+            <h2>Welcome to Flipkart Store!</h2>
+            <p>Your one-stop shop for the latest and greatest in electronics, accessories, and smart home devices. We pride ourselves on offering high-quality products at unbeatable prices, with a focus on customer satisfaction.</p>
+            <p>Explore our diverse range of products, from premium wireless headphones to powerful smartphones. Find exactly what you need and experience seamless shopping with Binit's Store.</p>
+            <button class="call-to-action-btn" onclick="navigatePage('products')">Shop Now</button>
+
+            <div class="featured-products-section">
+                <h3>Featured Products</h3>
+                <div class="featured-products-grid" id="featuredProductsContainer">
+                    </div>
+            </div>
+        </section>
+
+        <section id="productsSection" class="other-products-section page-section">
+            <h3>Our Products</h3>
+            <div class="category-filter">
+                <h4>Filter by Category:</h4>
+                <div id="categoryButtons" class="category-buttons">
+                </div>
+            </div>
+            <div class="other-products-grid" id="otherProductsContainer">
+            </div>
+        </section>
+
+        <section id="cartSection" class="shopping-cart-section page-section">
+            <h3>Your Shopping Cart</h3>
+            <div id="cartItemsDisplay" class="cart-items-display">
+                <p class="empty-cart-message">Your cart is empty. Start shopping now!</p>
+            </div>
+            <div id="cartSummary" class="cart-summary">
+                <p>Total Items: <span id="cartTotalItems">0</span></p>
+                <p>Total Price: <span id="cartTotalPrice">₹0.00</span></p>
+                <button class="checkout-btn" onclick="showCheckout()">Proceed to Checkout</button>
+            </div>
+        </section>
+
+        <section id="checkoutSection" class="checkout-section page-section">
+            <h3>Checkout</h3>
+            <div class="checkout-form-container">
+                <h4>Payment Information</h4>
+                <form id="paymentForm">
+                    <div class="form-group">
+                        <label for="cardName">Name on Card:</label>
+                        <input type="text" id="cardName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number:</label>
+                        <input type="text" id="cardNumber" pattern="[0-9]{16}" placeholder="16-digit number" required>
+                    </div>
+                    <div class="form-group form-row">
+                        <div class="form-col">
+                            <label for="expiryDate">Expiry Date:</label>
+                            <input type="text" id="expiryDate" pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="MM/YY" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="cvv">CVV:</label>
+                            <input type="text" id="cvv" pattern="[0-9]{3,4}" placeholder="3-4 digits" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="billingAddress">Billing Address:</label>
+                        <textarea id="billingAddress" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="place-order-btn">Place Order</button>
+                    <button type="button" class="back-to-cart-btn" onclick="navigatePage('cart')">Back to Cart</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="reviewsSection" class="customer-reviews-section page-section">
+            <h3>Customer Reviews</h3>
+            <div id="reviewsDisplay" class="reviews-display">
+                <p>Select a product from the "Products" page to view its reviews, or submit a general review below!</p>
+            </div>
+
+            <div class="review-form-container">
+                <h4>Submit Your Review</h4>
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <label for="reviewProductId">Select Product (optional):</label>
+                        <select id="reviewProductId" name="reviewProductId">
+                            <option value="">General Review (no specific product)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewerName">Your Name:</label>
+                        <input type="text" id="reviewerName" required>
+                        <span class="error-message" id="nameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewRating">Rating (1-5):</label>
+                        <input type="number" id="reviewRating" min="1" max="5" required>
+                        <span class="error-message" id="ratingError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewComment">Comment:</label>
+                        <textarea id="reviewComment" rows="4" required></textarea>
+                        <span class="error-message" id="commentError"></span>
+                    </div>
+                    <button type="submit" class="submit-review-btn">Submit Review</button>
+                </form>
+            </div>
+        </section>
+        <section id="accountSection" class="account-section page-section">
+            <h3>My Account</h3>
+            <div class="account-details-container">
+                <p><strong>Name:</strong> <span id="accountName"></span></p>
+                <p><strong>Email:</strong> <span id="accountEmail"></span></p>
+                <p><strong>Membership Tier:</strong> <span id="accountMembership"></span></p>
+            </div>
+
+            <div class="account-actions">
+                <h4>Update Profile</h4>
+                <form id="updateProfileForm">
+                    <div class="form-group">
+                        <label for="profileName">Name:</label>
+                        <input type="text" id="profileName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEmail">Email:</label>
+                        <input type="email" id="profileEmail" required>
+                    </div>
+                    <button type="submit" class="submit-profile-btn">Save Changes</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Chandan Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="customAlertModal" class="custom-alert-modal">
+        <div class="custom-alert-content">
+            <p id="alertMessage"></p>
+            <button class="custom-alert-close-btn" onclick="closeCustomAlert()">OK</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
